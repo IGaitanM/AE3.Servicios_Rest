@@ -1,5 +1,7 @@
 package servicio.rest.cliente;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +62,8 @@ public class Application implements CommandLineRunner {
 			
 		do {
 			
-			System.out.println(" \nElige una opción entre las siguientes: \n" + "----> 1. Dar de alta un videojuego \n" + 
+			System.out.println("\nBIENVENIDO A LA BIBLIOTECA DE VIDEOJUEGOS \n" + "----------------------------------------" + 
+								"\nElige una opción entre las siguientes: \n" + "----> 1. Dar de alta un videojuego \n" + 
 								"----> 2. Dar de baja un videojuego por ID. \n" + "----> 3. Modificar un videojuego por ID. \n" + 
 								"----> 4. Obtener un videojuego por ID \n" + "----> 5. Listar todos los videojuegos \n" + 
 								"----> 6. Salir \n");
@@ -83,7 +86,7 @@ public class Application implements CommandLineRunner {
 				case "2":
 					System.out.println("Introduce el ID");
 					id= Integer.parseInt(sc.nextLine());
-					spv.borrar(id);
+					System.out.println(spv.borrar(id));
 				
 					break;
 				case "3":
@@ -100,21 +103,33 @@ public class Application implements CommandLineRunner {
 					vid.setNota(nota);;
 					
 					spv.modificar(vid);
+					System.out.println(vid);
 					
 					break;
 				case "4":
 					System.out.println("Introduce el ID del juego a consultar");
 					id= Integer.parseInt(sc.nextLine());
 					
-					spv.obtener(id);
+					System.out.println(spv.obtener(id));
+					
 					
 					break;
 				case "5":
 					
 					System.out.println("Si quieres puedes filtar por compañía añadiendo el nombre de la compañia, si no, pulsa enter y saldrán todos");
 					String compañia = sc.nextLine();
-					spv.listar(compañia);
-					
+					List<Videojuego> lista= new ArrayList<Videojuego>();
+					if (compañia==null) {
+						lista=spv.listar(null);
+						for (Videojuego v: lista) {
+						System.out.println(v.toString());
+						}
+					}else
+						lista=spv.listar(compañia);
+						for (Videojuego v: lista) {
+						System.out.println(v.toString());
+						}
+
 					break;	
 					
 				case "6":
@@ -132,6 +147,7 @@ public class Application implements CommandLineRunner {
 		}while(continuar);
 		
 		sc.close();
+		pararAplicacion();
 	}
 
 	

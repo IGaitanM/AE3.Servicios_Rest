@@ -82,7 +82,6 @@ public class DaoVideojuego {
 	public String add(Videojuego v) {
 		for (Videojuego vid : listaVideojuegos) {
 			if (vid.getNombre().equalsIgnoreCase(v.getNombre())) {
-				System.out.println("nombre repetido, escribe otro");
 				return null;
 			}
 		}
